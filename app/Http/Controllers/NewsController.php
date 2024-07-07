@@ -35,6 +35,27 @@ class NewsController extends Controller
         
     }
 
+
+    public function filtro(String $name)
+    {
+        $new=News::where('autor','like','%'.$name.'%')->get();
+        
+        //verificar el porque no salta el error
+        if(!$new){
+            $data=[
+                'message'=>'no se encontraron autores similares',
+                'status'=>404
+            ];
+            return response()->json($data,404);
+        }
+
+        $data=[
+            'message'=>'noticias encontradas por autor',
+            'news'=>$new,
+            'status'=>200,
+        ];
+        return response()->json($data,200);
+    }
     /**
      * Show the form for creating a new resource.
      */

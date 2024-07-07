@@ -16,9 +16,7 @@ route::get('/news/{id}', [NewsController::class, 'show'])->name('news_find');
 route::get('/article/{id}', [ArticleController::class, 'show'])->name('article_find');
 
 //filtrar(noticias y articulos)
-route::get('/news/filter/{}', function(){
-    return ('filtrar una noticia');
-});
+route::get('/news/filter/{name}', [NewsController::class, 'filtro'])->name('news_filtro');
 route::get('/article/filter/{}', function(){
     return ('filtar un articulo');
 });

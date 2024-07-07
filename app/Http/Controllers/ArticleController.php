@@ -52,7 +52,22 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $search = Article::find($id);
+
+        if(!$search){
+            $data=[
+                'message'=>'articulo no encontrado',
+                'status'=>404
+            ];
+            return response()->json($data,404);
+        }
+
+        $data=[
+            'message'=>'articulo encontrado',
+            'articles'=>$search,
+            'status'=>200
+        ];
+        return response()->json($data,200);
     }
 
     /**

@@ -55,7 +55,22 @@ class NewsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $search = News::find($id);
+
+        if(!$search){
+            $data=[
+                'message'=>'noticia no encontrada',
+                'status'=>404
+            ];
+            return response()->json($data,404);
+        }
+
+        $data=[
+            'message'=>'noticia encontrada',
+            'news'=>$search,
+            'status'=>200
+        ];
+        return response()->json($data,200);
     }
 
     /**

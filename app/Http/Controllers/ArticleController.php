@@ -31,6 +31,26 @@ class ArticleController extends Controller
         return response()->json($data,200);
     }
 
+    public function filter(String $name)
+    {
+        $article=Article::where('autor','like','%'.$name.'%')->get();
+
+        if($article->isEmpty()){
+            $data=[
+                'message'=>'no se encontro el articulo',
+                'status'=>404
+            ];
+            return response()->json($data,404);
+        }
+
+        $data=[
+            'message'=>'articulo encontrado',
+            'articles'=>$article,
+            'status'=>200,
+        ];
+        return response()->json($data,200);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -52,22 +72,7 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        $search = Article::find($id);
-
-        if(!$search){
-            $data=[
-                'message'=>'articulo no encontrado',
-                'status'=>404
-            ];
-            return response()->json($data,404);
-        }
-
-        $data=[
-            'message'=>'articulo encontrado',
-            'articles'=>$search,
-            'status'=>200
-        ];
-        return response()->json($data,200);
+       
     }
 
     /**
